@@ -6,7 +6,7 @@
 /*   By: yolee <yolee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 01:50:09 by yolee             #+#    #+#             */
-/*   Updated: 2022/01/28 15:32:03 by yolee            ###   ########.fr       */
+/*   Updated: 2022/01/28 15:36:15 by yolee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	read_to_buffer(char *buf, int fd, int *end_flag)
 	return (1);
 }
 
-void	cat_line(char *buf, char *line, size_t line_size, int *end_flag)
+int	cat_line(char *buf, char *line, size_t line_size, int *end_flag)
 {
 	char	*temp_line;
 	char	*line_end;
@@ -43,6 +43,8 @@ void	cat_line(char *buf, char *line, size_t line_size, int *end_flag)
 	line_size += (size_t)(line_end - buf);
 	temp_line = line;
 	line = malloc(sizeof(char) * line_size);
+	if (line == NULL)
+		return (0);
 	if (temp_line != NULL)
 		line = ft_memmove(line, temp_line, line_size);
 	else
@@ -50,6 +52,7 @@ void	cat_line(char *buf, char *line, size_t line_size, int *end_flag)
 	ft_strlcat(line, buf, line_size);
 	ft_memmove(buf, line_end, ft_strlen(line_end));
 	free(temp_line);
+	return (1);
 }
 
 char	*get_next_line(int fd)
@@ -73,7 +76,8 @@ char	*get_next_line(int fd)
 		if (!ft_strlen(buf))
 			if (!read_to_buffer(buf, fd, &end_flag))
 				return (NULL);
-		cat_line(buf, line, line_size, &end_flag);
+		if (!cat_line(buf, line, line_size, &end_flag))
+			return (NULL);
 	}
 	return (line);
 }

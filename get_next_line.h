@@ -6,7 +6,7 @@
 /*   By: yolee <yolee@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 01:49:36 by yolee             #+#    #+#             */
-/*   Updated: 2022/01/28 15:32:37 by yolee            ###   ########.fr       */
+/*   Updated: 2022/01/28 15:36:30 by yolee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	read_to_buffer(char *buf, int fd, int *end_flag);
-void	cat_line(char *buf, char *line, size_t line_size, int *end_flag);
+int		read_to_buffer(char *buf, int fd, int *end_flag);
+int		cat_line(char *buf, char *line, size_t line_size, int *end_flag);
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
